@@ -7,7 +7,7 @@ public class Creation {
 	private final String nums = "0123456789";
 	private final String symbs = "!@#$%^&*_=+-/.?<>)";
 
-	public void generatePassword(int len) {
+	public String generatePassword(int len) {
 
 		final String values = small + big + nums + symbs;
 		char[] pass = new char[len];
@@ -16,6 +16,6 @@ public class Creation {
 		for (int i = 0; i < pass.length; i++) {
 			result += values.charAt((int) Math.floor(Math.random() * (values.length() - pass.length) + pass.length));
 		}
-		System.out.println(result);
+		return result;
 	}
 }

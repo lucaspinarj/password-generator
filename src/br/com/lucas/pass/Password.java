@@ -4,15 +4,20 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+
 public class Password {
 
 	public static void main(String[] args) {
 		Creation pw = new Creation();
 		
-		Scanner enter = new Scanner(JOptionPane.showInputDialog("Qual o tamanho da sua senha? (qtd em números)"));
-		int numero;
+		Scanner enter = new Scanner(JOptionPane.showInputDialog("How many characters? (number values)"));
+		int len = enter.nextInt();
 		
-		JOptionPane.showInputDialog(new Creation());
+		pw.generatePassword(len);
+		
+		String password = "Your password is: " + pw.generatePassword(len);
+		
+		JOptionPane.showMessageDialog(null, password);
 		
 		
 		enter.close();
