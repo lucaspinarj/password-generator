@@ -1,5 +1,6 @@
 # password-generator
-Added JOptionPane to create a more beautiful interaction with the user but still has some **limitations:**
- - No way to write a password longer than 80 characters, but since this is not the point of the generator. I don't see as a problem, but the longer the password the weirdest it gets. if you type 79 characters for your password the answer should **always** be 79 ")" (not even kidding).
- - There is not a way to copy the password directly from the message pane, which is annoying. (just a demo project anyway). But I made it showing up on the console as well, so It is indeed copiable.
+Added JOptionPane to create a more beautiful interaction with the user but still has some little **limitations:**
+ - Since this is an OTP password generator, you can't create longer than 25 characters passwords
+ - You can't reuse the app multiple times after you've generated your password, if you want another one, you'll need to open it again in order to have it.
+ - There are some other password 
  - Don't forget to have updated JDK or JRE on your device so you have no problems.
