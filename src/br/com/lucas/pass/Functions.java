@@ -74,23 +74,18 @@ public class Functions {
 		switch (choice) {
 		case 0:
 			result = gen.letterPassword(length);
-			System.out.println("Letters Only");
 			break;
 		case 1:
 			result = gen.numberPassword(length);
-			System.out.println("Numbers Only");
 			break;
 		case 2:
 			result = gen.letterNumberPassword(length);
-			System.out.println("Letters + Numbers");
 			break;
 		case 3:
 			result = gen.letterSymbolsPassword(length);
-			System.out.println("Letters + Symbols");
 			break;
 		case 4:
 			result = gen.defPassword(length);
-			System.out.println("Default");
 			break;
 		default:
 			close();
