@@ -1,37 +1,110 @@
 package br.com.lucas.pass;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 public class Functions {
 
-	void question() {
-		Creation pw = new Creation();
-		Scanner enter;
-		int len = 0;
+	Generator gen = new Generator();
+	JTextArea ta = new JTextArea();
+	Scanner enter;
 
-		try {
-			do {
-				enter = new Scanner(JOptionPane.showInputDialog(null, "How many characters? (number values)",
-						"Password Generator", JOptionPane.QUESTION_MESSAGE));
-				len = enter.nextInt();
+	boolean smal = false;
+	boolean big = false;
 
-				if (len <= 4) {
-					JOptionPane.showMessageDialog(null, "Don't you want to try a longer password?", "oops!",
-							JOptionPane.PLAIN_MESSAGE);
-				}
+	int length = 0;
+	int choice = 0;
+	
+	String result;
 
-				enter.close();
-			} while (len <= 4);
-		} catch (NullPointerException e) {
-			JOptionPane.getRootFrame().dispose();
-		}
+	void selection1() {
 
-		String password = "Your password is: " + pw.generatePassword(len);
-		JOptionPane.showMessageDialog(null, password);
+		String[] options = new String[] { "Letters Only", "Numbers Only", "Letters + Numbers", "Letters + Symbols",
+				"Default" };
 
-		System.out.println(password);
+		choice = JOptionPane.showOptionDialog(null, "Select a password type to be generated:",
+				"Choose your Password Type", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options,
+				options[4]);
 
 	}
+
+	void selection2() {
+
+		do {
+			boolean sucess = false;
+
+			while (sucess == false) {
+				try {
+					enter = new Scanner(JOptionPane.showInputDialog(null, "How many characters? (in numbers)",
+							"Password Length", JOptionPane.QUESTION_MESSAGE));
+					length = enter.nextInt();
+					sucess = true;
+				} catch (NoSuchElementException e) {
+					JOptionPane.showMessageDialog(null, "Not a valid number. Please, try again.", "ERROR",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+
+			smal = length <= 3;
+			big = length >= 26;
+
+			if (smal == true) {
+				JOptionPane.showMessageDialog(null, "Why don't you set a longer password?", "oops",
+						JOptionPane.WARNING_MESSAGE);
+			} else if (big == true) {
+				JOptionPane.showMessageDialog(null, "Do you really need the password to be this longer?", "oops",
+						JOptionPane.WARNING_MESSAGE);
+			}
+		} while (big == true || smal == true);
+	}
+
+	void answer() {
+		
+		selection1();
+		
+		try {
+			selection2();
+		} catch (NullPointerException e) {
+			close();
+		}
+		
+		switch (choice) {
+		case 0:
+			result = gen.letterPassword(length);
+			System.out.println("Letters Only");
+			break;
+		case 1:
+			result = gen.numberPassword(length);
+			System.out.println("Numbers Only");
+			break;
+		case 2:
+			result = gen.letterNumberPassword(length);
+			System.out.println("Letters + Numbers");
+			break;
+		case 3:
+			result = gen.letterSymbolsPassword(length);
+			System.out.println("Letters + Symbols");
+			break;
+		case 4:
+			result = gen.defPassword(length);
+			System.out.println("Default");
+			break;
+		default:
+			close();
+		}
+
+		ta.setText(result);
+		ta.setEditable(false);
+		ta.setLineWrap(false);
+		
+		JOptionPane.showMessageDialog(null, ta, "Your Password", JOptionPane.PLAIN_MESSAGE);
+	}
+
+	void close() {
+		System.exit(0);
+	}
+
 }
